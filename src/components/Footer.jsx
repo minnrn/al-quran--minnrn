@@ -4,7 +4,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full text-center py-7 bg-emerald-600 text-white">
+    <footer className="w-full text-center py-7 bg-emerald-600 text-white text-xs">
       <p>© {currentYear} i-Recite. All Rights Reserved ♥ by Kibieptr</p>
     </footer>
   );
