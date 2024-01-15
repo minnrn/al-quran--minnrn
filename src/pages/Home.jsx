@@ -1,19 +1,19 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Main from '../layout/Main';
-import BreadCrumbs from '../components/BreadCrumbs';
-import SearchBar from '../components/SearchBar';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Main from "../layout/Main";
+import BreadCrumbs from "../components/BreadCrumbs";
+import SearchBar from "../components/SearchBar";
 
 const Home = () => {
   const [surah, setSurah] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
 
   const getSurah = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('https://api.quran.gading.dev/surah');
+      const res = await axios.get("https://api.quran.gading.dev/surah");
       setSurah(res.data.data);
       setLoading(false);
     } catch (e) {
@@ -51,28 +51,43 @@ const Home = () => {
           </div>
           {loading ? (
             <div className="mt-8 grid place-items-center">
-              <div className="lds-ripple"><div /><div /></div>
+              <div className="lds-ripple">
+                <div />
+                <div />
+              </div>
             </div>
           ) : (
             <div className="mt-8">
-              {surah.filter((_surah) => (
-                search.toLowerCase === ''
-                  ? _surah
-                  : _surah.name.transliteration.id.toLowerCase().includes(search)))
+              {surah
+                .filter((_surah) =>
+                  search.toLowerCase === ""
+                    ? _surah
+                    : _surah.name.transliteration.id
+                        .toLowerCase()
+                        .includes(search)
+                )
                 .map((_surah) => (
                   <Link to={`/surah/${_surah.number}`} key={_surah?.number}>
                     <div className="flex items-center justify-between py-4 border-b">
                       <div className="flex items-center gap-4">
                         <div className="w-10 h-10 radius flex justify-center items-center border border-emerald-500">
-                          <span className="text-slate-500 text-sm">{_surah.number}</span>
+                          <span className="text-slate-500 text-sm">
+                            {_surah.number}
+                          </span>
                         </div>
                         <div>
-                          <p className="font-semibold">{_surah.name.transliteration.id}</p>
-                          <p className="text-sm text-slate-500">{_surah.name.translation.id}</p>
+                          <p className="font-semibold">
+                            {_surah.name.transliteration.id}
+                          </p>
+                          <p className="text-sm text-slate-500">
+                            {_surah.name.translation.id}
+                          </p>
                         </div>
                       </div>
                       <div>
-                        <span className="text-2xl nama-surah">{_surah.name.short}</span>
+                        <span className="text-2xl nama-surah">
+                          {_surah.name.short}
+                        </span>
                       </div>
                     </div>
                   </Link>

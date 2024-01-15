@@ -19,7 +19,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route>
-          <Route index element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/surah" element={<Home />} />
           <Route path="/surah/:id" element={<Surah />} />
           <Route path="/surah/:id/:ayat" element={<Ayat />} />

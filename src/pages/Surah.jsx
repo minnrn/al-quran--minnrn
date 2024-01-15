@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import Main from '../layout/Main';
-import ShimmerAyahs from '../components/ShimmerAyahs';
-import BreadCrumbs from '../components/BreadCrumbs';
+import React, { useEffect, useState } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
+import axios from "axios";
+import Main from "../layout/Main";
+import ShimmerAyahs from "../components/ShimmerAyahs";
+import BreadCrumbs from "../components/BreadCrumbs";
 
 const Surah = () => {
   const location = useLocation();
@@ -19,7 +19,7 @@ const Surah = () => {
 
   useEffect(() => {
     // Ambil data bookmark dari localStorage saat komponen pertama kali dimuat
-    const dataBookmark = JSON.parse(localStorage.getItem('bookmarks'));
+    const dataBookmark = JSON.parse(localStorage.getItem("bookmarks"));
     if (dataBookmark) {
       setBookmarks(dataBookmark);
     }
@@ -39,8 +39,8 @@ const Surah = () => {
   };
 
   const openDesc = () => {
-    const desc = document.querySelector('.desc');
-    desc.classList.toggle('hidden');
+    const desc = document.querySelector(".desc");
+    desc.classList.toggle("hidden");
   };
 
   const playAudio = async (i, n) => {
@@ -51,8 +51,8 @@ const Surah = () => {
     }
     const pauseBtn = document.querySelector(`.pause${n}`);
     const playBtn = document.querySelector(`.play${n}`);
-    playBtn.classList.toggle('hidden');
-    pauseBtn.classList.toggle('hidden');
+    playBtn.classList.toggle("hidden");
+    pauseBtn.classList.toggle("hidden");
     const audio = document.getElementById(`audio${i}`);
     audio.play();
     setIsPlaying((prevIsPlaying) => {
@@ -63,8 +63,8 @@ const Surah = () => {
   };
 
   const pauseAudio = (i, n, reset) => {
-    document.querySelector(`.pause${n}`).classList.toggle('hidden');
-    document.querySelector(`.play${n}`).classList.toggle('hidden');
+    document.querySelector(`.pause${n}`).classList.toggle("hidden");
+    document.querySelector(`.play${n}`).classList.toggle("hidden");
     const audio = document.getElementById(`audio${i}`);
     if (reset) {
       audio.currentTime = 0;
@@ -83,15 +83,18 @@ const Surah = () => {
     if (!isExist) {
       const newBookmarks = [...bookmarks, ayat_id];
       setBookmarks(newBookmarks);
-      localStorage.setItem('bookmarks', JSON.stringify(newBookmarks));
+      localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
     } else {
       const newBookmarks = bookmarks.filter((item) => item !== ayat_id);
       setBookmarks(newBookmarks);
-      localStorage.setItem('bookmarks', JSON.stringify(newBookmarks));
+      localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
     }
   };
 
-  const isMarked = (ayat_id) => (bookmarks.includes(ayat_id) ? 'fa-solid text-emerald-400' : 'fa-regular text-gray-500');
+  const isMarked = (ayat_id) =>
+    bookmarks.includes(ayat_id)
+      ? "fa-solid text-emerald-400"
+      : "fa-regular text-gray-500";
 
   useEffect(() => {
     // Ambil data surah saat location key berubah (navigasi)
@@ -99,7 +102,7 @@ const Surah = () => {
   }, [location.key]);
 
   const link = {
-    title: `${detailSurat?.name?.transliteration?.id ?? '-'}`,
+    title: `${detailSurat?.name?.transliteration?.id ?? "-"}`,
     path: `/surah/${detailSurat?.number}`,
   };
 
@@ -117,7 +120,7 @@ const Surah = () => {
         {loading ? (
           <ShimmerAyahs />
         ) : (
-          <div className="px-7 pt-6" style={{ overflow: 'hidden' }}>
+          <div className="px-7 pt-6" style={{ overflow: "hidden" }}>
             <div className="text-center">
               <p className="text-gray-800 font-semibold text-2xl nama-surah">
                 {detailSurat?.name?.short}
@@ -126,24 +129,37 @@ const Surah = () => {
                 className="text-gray-800 inline font-semibold text-xl mt-2 cursor-pointer hover:underline"
                 onClick={() => openDesc()}
               >
-                <span className="text-justify">{detailSurat?.name?.transliteration?.id}</span>
+                <span className="text-justify">
+                  {detailSurat?.name?.transliteration?.id}
+                </span>
               </p>
               <div className="flex justify-around items-center">
-                <Link to={`/surah/${detailSurat?.number - 1 === 0 ? 114 : detailSurat?.number - 1}`}>
+                <Link
+                  to={`/surah/${
+                    detailSurat?.number - 1 === 0
+                      ? 114
+                      : detailSurat?.number - 1
+                  }`}
+                >
                   <i className="fa-solid fa-arrow-left" />
                 </Link>
                 <p className="text-gray-500 text-base mt-2 mb-4">
                   {detailSurat?.arti}
                 </p>
-                <Link to={`/surah/${detailSurat?.number + 1 === 115 ? 1 : detailSurat?.number + 1}`}>
+                <Link
+                  to={`/surah/${
+                    detailSurat?.number + 1 === 115
+                      ? 1
+                      : detailSurat?.number + 1
+                  }`}
+                >
                   <i className="fa-solid fa-arrow-right" />
                 </Link>
               </div>
               <hr />
               <p className="text-gray-500 my-3">
-                <span>
-                  {detailSurat?.revelation?.id}
-                </span> - <span>{detailSurat?.numberOfVerses} ayat</span>
+                <span>{detailSurat?.revelation?.id}</span> -{" "}
+                <span>{detailSurat?.numberOfVerses} ayat</span>
               </p>
               <p className="text-gray-500 desc hidden transition-all ease duration-300">
                 {detailSurat?.tafsir?.id}
@@ -151,19 +167,39 @@ const Surah = () => {
             </div>
             <div className="mt-8">
               {ayat.slice(0, renderedAyatCount).map((a, i) => (
-                <div className="py-6 border-b flex-column gap-4 items-start justify-between transition-all ease duration-300" key={a.number.inSurah}>
+                <div
+                  className="py-6 border-b flex-column gap-4 items-start justify-between transition-all ease duration-300"
+                  key={a.number.inSurah}
+                >
                   <div className="flex gap-3 items-center justify-between">
                     <span className="flex justify-center items-center text-slate-500 text-sm w-10 h-10 radius border">
                       {a.number.inSurah}
                     </span>
                     <div className="flex gap-4">
-                      <span onClick={() => setBookmark(a?.number?.inQuran)} className="cursor-pointer">
-                        <i className={`fa-sharp ${isMarked(a?.number?.inQuran)} fa-bookmark`} />
+                      <span
+                        onClick={() => setBookmark(a?.number?.inQuran)}
+                        className="cursor-pointer"
+                      >
+                        <i
+                          className={`fa-sharp ${isMarked(
+                            a?.number?.inQuran
+                          )} fa-bookmark`}
+                        />
                       </span>
-                      <span onClick={() => playAudio(i, i)} className={`cursor-pointer play play${i} ${isPlaying[i] ? 'hidden' : ''}`}>
+                      <span
+                        onClick={() => playAudio(i, i)}
+                        className={`cursor-pointer play play${i} ${
+                          isPlaying[i] ? "hidden" : ""
+                        }`}
+                      >
                         <i className="text-gray-500 fa-sharp fa-solid fa-play" />
                       </span>
-                      <span onClick={() => pauseAudio(i, i)} className={`cursor-pointer pause pause${i} ${isPlaying[i] ? '' : 'hidden'}`}>
+                      <span
+                        onClick={() => pauseAudio(i, i)}
+                        className={`cursor-pointer pause pause${i} ${
+                          isPlaying[i] ? "" : "hidden"
+                        }`}
+                      >
                         <i className="text-gray-500 fa-sharp fa-solid fa-pause" />
                       </span>
                       <Link to={`/surah/${detailSurat.number}/${i + 1}`}>
@@ -177,12 +213,8 @@ const Surah = () => {
                     <p className="nama-surah text-2xl mb-5 leading-[4rem]">
                       {a.text.arab}
                     </p>
-                    <p className="mb-3">
-                      {a.text.transliteration.en}
-                    </p>
-                    <p className="text-slate-700 mb-2">
-                      {a.translation.id}
-                    </p>
+                    <p className="mb-3">{a.text.transliteration.en}</p>
+                    <p className="text-slate-700 mb-2">{a.translation.id}</p>
                     <audio
                       src={a.audio.primary}
                       id={`audio${i}`}
