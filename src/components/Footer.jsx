@@ -5,7 +5,7 @@ const Footer = () => {
 
   return (
     <footer className="w-full text-center py-7 bg-gray-800 text-white text-sm">
-      <p>© {currentYear} i-Recite. All Rights Reserved ♥ by Kibieptr</p>
+      <p>© {currentYear} Al-Qur'an Indonesia</p>
     </footer>
   );
 };

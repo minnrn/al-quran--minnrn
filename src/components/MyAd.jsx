@@ -4,9 +4,9 @@ import AdSense from "react-adsense";
 const MyAd = () => (
   <div>
     <AdSense.Google
-      client="pub-2662894778043128"
+      client="pub-1234567890123456"
       slot="2335003468"
-      style={{ display: "block" }}
+      style={{ display: "none" }}
       format="auto"
       responsive="true"
     />
